@@ -127,7 +127,7 @@ egészítsük ki egy `LocalDateTime` típusú tagváltozóval. Ennek megadása n
 - A lejáratot úgy tudjuk kezelni, ha periodikusan (pl. percenként) futtatunk egy metódust,
 amely átnézi, és törli az összes olyan hirdetést, amelynek a lejárati ideje korábbi, mint
 a jelenlegi dátum és idő. Ehhez először az időzítő-szolgáltatásokat kell engedélyezni.
-Az `Application` osztályra tegxük rá az `@EnableScheduling` annotációt.
+Az `Application` osztályra tegyük rá az `@EnableScheduling` annotációt.
 - Valamelyik Spring komponensben készítsünk egy olyan metódust, amelyen a
 `@Scheduled(fixedDelay= 6000)` annotációt. Ebben valósítsuk meg a már lejárt hirdetések törlését.
 - Teszteljük a működést egy rövid lejáratú hirdetés felvitelével!
