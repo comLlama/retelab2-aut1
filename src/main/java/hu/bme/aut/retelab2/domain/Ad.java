@@ -17,6 +17,8 @@ public class Ad {
     private int price;
     private Date createdAt;
 
+    private String secret;
+
     public String getTitle() {
         return title;
     }
@@ -55,5 +57,13 @@ public class Ad {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }

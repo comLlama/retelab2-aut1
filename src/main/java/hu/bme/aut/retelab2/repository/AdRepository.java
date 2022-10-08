@@ -1,9 +1,11 @@
 package hu.bme.aut.retelab2.repository;
 
 import hu.bme.aut.retelab2.domain.Ad;
+import hu.bme.aut.retelab2.generator.SecretGenerator;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.naming.AuthenticationException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -14,8 +16,9 @@ public class AdRepository {
     private EntityManager em;
 
     @Transactional
-    public Ad save(Ad newad) {
-        return em.merge(newad);
+    public Ad save(Ad newAd) {
+        newAd.setSecret(SecretGenerator.generate());
+        return em.merge(newAd);
     }
 
     public List<Ad> findAll() {
@@ -32,6 +35,16 @@ public class AdRepository {
                 .setParameter(1, minPrice)
                 .setParameter(2, maxPrice)
                 .getResultList();
+    }
+
+    @Transactional
+    public Ad modify(Ad newAd) throws AuthenticationException {
+        Ad oldAd = findById(newAd.getId());
+        if ( oldAd == null || !(oldAd.getSecret().equals( newAd.getSecret() )) ) {
+            throw new AuthenticationException("Can't modify ad.");
+        }
+        newAd.setCreatedAt(oldAd.getCreatedAt());
+        return em.merge(newAd);
     }
 
     @Transactional
