@@ -35,7 +35,6 @@ public class AdRepository {
     }
 
     public List<Ad> findByPrice(int minPrice, int maxPrice) {
-        //return em.createQuery("SELECT n FROM Note n WHERE n.text LIKE ?1", Note.class).setParameter(1, '%' + keyword + '%').getResultList();
         return em.createQuery("SELECT a FROM Ad a WHERE a.price >= ?1 AND a.price <= ?2", Ad.class)
                 .setParameter(1, minPrice)
                 .setParameter(2, maxPrice)
