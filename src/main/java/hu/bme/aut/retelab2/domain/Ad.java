@@ -1,9 +1,12 @@
 package hu.bme.aut.retelab2.domain;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -22,6 +25,11 @@ public class Ad {
 
     @ElementCollection
     private List<String> tags = new ArrayList<>();
+
+    @Nullable
+    private LocalDateTime expiry;
+
+    //
 
     public String getTitle() {
         return title;
@@ -77,5 +85,13 @@ public class Ad {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public LocalDateTime getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(LocalDateTime expiry) {
+        this.expiry = expiry;
     }
 }
