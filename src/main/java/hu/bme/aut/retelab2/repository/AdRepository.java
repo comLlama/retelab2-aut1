@@ -59,20 +59,21 @@ public class AdRepository {
     }
 
     @Transactional
-    @Modifying
     public void deleteById(long id) {
         Ad rm = findById(id);
         em.remove(rm);
     }
 
     @Scheduled(fixedDelay = 6000)
+    @Transactional
     public void removeExpired(){
         List<Ad> expired = em.createQuery("SELECT a FROM Ad a WHERE ?1 > a.expiry", Ad.class)
                 .setParameter(1, LocalDateTime.now())
                 .getResultList();
 
         for (Ad e : expired){
-            deleteById(e.getId());
+            e.getTags().clear();
+            em.remove(e);
         }
     }
 }
