@@ -48,10 +48,13 @@ public class AdController {
         }
     }
 
-    @ResponseStatus(code = HttpStatus.OK)
-    private void okResponse() {}
-
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    private void forbiddenResponse() {}
+    @GetMapping("/{tag}")
+    public List<Ad> findByTag(@PathVariable String tag){
+        List<Ad> results = adRepository.findByTag(tag);
+        for (Ad r: results){
+            r.setSecret(null);
+        }
+        return results;
+    }
 
 }

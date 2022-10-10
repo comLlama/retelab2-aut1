@@ -37,6 +37,12 @@ public class AdRepository {
                 .getResultList();
     }
 
+    public List<Ad> findByTag(String tag) {
+        return em.createQuery("SELECT a FROM Ad a WHERE ?1 MEMBER a.tags", Ad.class)
+                .setParameter(1, tag)
+                .getResultList();
+    }
+
     @Transactional
     public Ad modify(Ad newAd) throws AuthenticationException {
         Ad oldAd = findById(newAd.getId());
